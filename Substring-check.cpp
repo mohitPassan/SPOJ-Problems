@@ -37,8 +37,8 @@ int main()
 				j++;			
 				k++;
 			}
-			else				//Otherwise go at initial positin in string b and in string a go back to the (character from this particular comparison started, which is stored in i) + 1.
-			{
+			else				//Otherwise go at initial positin in string b and in string a go back to the (character 
+			{					//from this particular comparison started, which is stored in i) + 1.
 				j=0;
 				k=++i;
 			}
