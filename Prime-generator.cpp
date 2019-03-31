@@ -3,36 +3,38 @@
 using namespace std;
 typedef long long int LI;
 
-void mark(LI arr[],LI size)
+bool isPrime(LI n)
 {
-	LI i,j;
-	for(i=2;i<=sqrt(size);i++)
-	{
-		//cout << "i=" << i << endl;
-		for(j=i*i;j<size;j+=i)
+	if(n<2)							//0 and 1 are not prime numbers.
+		return false;
+	for(LI i=2;i<=sqrt(n);i++)		//Checking form 2 to square root of n because a larger factor of n must be a multiple of	
+	{								//smaller factor that has been already checked.
+		if(n%i == 0)				
 		{
-			//cout << "j=" << j << endl;
-			arr[j] = 1;
+			return false;
 		}
 	}
+	return true;
+}
+void printPrimes(LI start,LI end)
+{
+	for(LI i=start;i<=end;i++)
+	{
+		if(isPrime(i))				//Checking if prime by calling 'isPrime()'
+		{
+			cout << i << endl;		//Print if it is prime.
+		}
+	}	
 }
 int main()
 {
 	int t;
-	cin >> t;
+	cin >> t;						//No of test cases.
 	while(t--)
 	{
-		LI a,b,*seive;
+		LI a,b;						//To print from a to b.
 		cin >> a >> b;
-		seive = new LI[b+1] ();
-		seive[0] = 1;
-		seive[1] = 1;
-		mark(seive,b+1);
-		for(LI i=a;i<b;i++)
-		{
-			if(seive[i] == 0)
-				cout << i << endl;	
-		}
-		cout << endl;
+		printPrimes(a,b);			//Function for printing prime numbers from a to b.
+		cout << endl;				//Empty line to ber printed after each test case.
 	}
 }
