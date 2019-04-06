@@ -38,6 +38,7 @@ void addition(char a[], char b[], char op)
 		cout << "-";
 	}
 	cout << endl;
+
 	stack<int> first,second,result;
 	int carry=0;
 	for(i=0;i<strlen(a);i++)
@@ -48,7 +49,6 @@ void addition(char a[], char b[], char op)
 	{
 		second.push(b[i] - '0');
 	}
-	int size = (first.size()<second.size()?first.size():second.size());
 	while(!first.empty() && !second.empty())
 	{
 		int element = first.top() + second.top();
@@ -115,7 +115,89 @@ void multiplication(char a[], char b[], char op)
 
 void subtraction(char a[], char b[], char op)
 {
-	cout << a << endl << op << b;
+	int i,length = (strlen(a)>strlen(b)?strlen(a):strlen(b)+1);
+	char *c = new char[strlen(b) + 1];
+	c[0] = op;
+	for(i=1;i<=strlen(b);i++)
+	{
+		c[i] = b[i-1];
+	}
+	c[i]='\0';
+	cout << setw(length) << a << endl;
+	cout << setw(length) << c << endl;
+	for(i=0;i<length;i++)
+	{
+		cout << "-";
+	}
+	cout << endl;
+
+	stack<int> first,second,result;
+	int borrow=0;
+	for(i=0;i<strlen(a);i++)
+	{
+		first.push(a[i] - '0');
+	}
+	for(i=0;i<strlen(b);i++)
+	{
+		second.push(b[i] - '0');
+	}
+	while(!first.empty() && !second.empty())
+	{
+		int element = first.top() - second.top();
+		if(borrow)
+		{
+			element--;
+			borrow = 0;
+		}
+		if(element<0)
+		{
+			element += 10;
+			borrow = 1;
+		}
+		else
+		{
+			borrow = 0;
+		}
+		result.push(element);
+		first.pop();
+		second.pop();
+	}
+	while(!first.empty())
+	{
+		if(borrow)
+		{
+			result.push(first.top() - 1);
+			borrow=0;
+		}
+		else
+		{
+			result.push(first.top());
+		}
+		first.pop();
+	}
+	while(!second.empty())
+	{
+		if(borrow)
+		{
+			result.push(second.top() + 1);
+			borrow=0;
+		}
+		else
+		{
+			result.push(second.top());
+		}
+		second.pop();
+	}
+	char *answer = new char[length];
+	i=0;
+	while(!result.empty())
+	{
+		answer[i] = result.top() + '0';
+		result.pop();
+		i++;
+	}
+	answer[i]='\0';
+	cout << setw(length) << answer;
 }
 
 int main()
@@ -130,10 +212,10 @@ int main()
 			addition(a,b,op);
 			break;
 		case '-':
-			multiplication(a,b,op);
+			subtraction(a,b,op);
 			break;
 		case '*':
-			subtraction(a,b,op);
+			multiplication(a,b,op);
 			break;
 	}
 }
