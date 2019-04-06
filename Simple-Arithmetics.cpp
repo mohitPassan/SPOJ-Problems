@@ -159,15 +159,6 @@ void multiplication(char a[], char b[], char op)
 		}
 		cout << ans[i] << endl;
 	}
-	for(i=strlen(b)-2;i>=0;i--)
-	{
-		for(j=strlen(b)-i;j>=0;j--)
-		{
-			ans[i][strlen(a)+1+j] = '#';
-		}
-		ans[i][strlen(a)+1+j] = '\0';
-	}
-	cout << ans[0] << endl << ans[1] << endl << ans[2] << endl;
 	// char *result = new char[strlen(a)+3];
 	// result[strlen(a)+2] = '\0';
 	// carry = 0;
