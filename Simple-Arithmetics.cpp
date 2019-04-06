@@ -159,41 +159,65 @@ void multiplication(char a[], char b[], char op)
 		}
 		cout << ans[i] << endl;
 	}
-	char *result = new char[strlen(a)+3];
-	result[strlen(a)+2] = '\0';
-	carry = 0;
-	for(i=strlen(a);i>=0;i--)
+	for(i=strlen(b)-2;i>=0;i--)
 	{
-		int temp = 0;
-		for(j=strlen(b)-1;j>=0;j--)
+		for(j=strlen(b)-i;j>=0;j--)
 		{
-			if(ans[j][i] == ' ')
-			{
-				temp += 0;
-			}
-			else
-			{
-				temp += ans[j][i] - '0';
-			}
+			ans[i][strlen(a)+1+j] = '#';
 		}
-		if(carry)
-		{
-			temp++;
-			carry=0;
-		}
-		if(temp >= 10)
-		{
-			carry = temp / 10;
-			temp %= 10;
-		}
-		else
-		{
-			carry = 0;
-		}
-		result[i+1] = temp + '0';
+		ans[i][strlen(a)+1+j] = '\0';
 	}
-	result[i+1] = carry + '0';
-	cout << result;
+	cout << ans[0] << endl << ans[1] << endl << ans[2] << endl;
+	// char *result = new char[strlen(a)+3];
+	// result[strlen(a)+2] = '\0';
+	// carry = 0;
+	// for(i=strlen(a);i>=0;i--)
+	// {
+	// 	int temp = 0;
+	// 	for(j=strlen(b)-1;j>=0;j--)
+	// 	{
+	// 		if(ans[j][i] == ' ')
+	// 		{
+	// 			temp += 0;
+	// 		}
+	// 		else
+	// 		{
+	// 			temp += ans[j][i] - '0';
+	// 		}
+	// 	}
+	// 	if(carry)
+	// 	{
+	// 		temp++;
+	// 		carry=0;
+	// 	}
+	// 	if(temp >= 10)
+	// 	{
+	// 		carry = temp / 10;
+	// 		temp %= 10;
+	// 	}
+	// 	else
+	// 	{
+	// 		carry = 0;
+	// 	}
+	// 	result[i+1] = temp + '0';
+	// }
+	// result[i+1] = carry + '0';
+	// for(i=0;i<2;i++)
+	// {
+	// 	if(result[i] == '0')
+	// 	{
+	// 		for(j=0;result[j]!='\0';j++)
+	// 		{
+	// 			result[j] = result[j+1];
+	// 		}
+	// 		i=-1;
+	// 	}
+	// 	else
+	// 	{
+	// 		break;
+	// 	}
+	// }
+	// cout << result;
 }
 
 void subtraction(char a[], char b[], char op)
