@@ -110,7 +110,90 @@ void addition(char a[], char b[], char op)
 
 void multiplication(char a[], char b[], char op)
 {
-	cout << a << endl << op << b;
+	char **ans = new char*[strlen(b)-1];
+	int i,j,carry;
+	for(i=0;i<strlen(b);i++)
+	{
+		ans[i] = new char[strlen(a)+2];
+	}
+	for(i=0;i<strlen(b);i++)
+	{
+		ans[i][strlen(a)+1] = '\0';
+	}
+	for(i=strlen(b)-1;i>=0;i--)
+	{
+		carry=0;
+		if(b[i] == '0')
+		{
+			ans[i][0] = '0';
+			ans[i][1] = '\0';
+		}
+		else
+		{
+			for(j=strlen(a)-1;j>=0;j--)
+			{
+				int temp;
+				temp = (a[j] - '0') * (b[i] - '0');
+				if(carry != 0)
+				{
+					temp += carry;
+					carry = 0;
+				}
+				if(temp >= 10)
+				{
+					carry = temp / 10;
+					temp = temp % 10;
+				}
+				else
+				{
+					carry = 0;
+				}
+				ans[i][j+1] = temp + '0';
+			}
+			if(carry!=0)
+				ans[i][j+1] = carry + '0';
+			else
+			{
+				ans[i][j+1] = ' ';
+			}
+		}
+		cout << ans[i] << endl;
+	}
+	char *result = new char[strlen(a)+3];
+	result[strlen(a)+2] = '\0';
+	carry = 0;
+	for(i=strlen(a);i>=0;i--)
+	{
+		int temp = 0;
+		for(j=strlen(b)-1;j>=0;j--)
+		{
+			if(ans[j][i] == ' ')
+			{
+				temp += 0;
+			}
+			else
+			{
+				temp += ans[j][i] - '0';
+			}
+		}
+		if(carry)
+		{
+			temp++;
+			carry=0;
+		}
+		if(temp >= 10)
+		{
+			carry = temp / 10;
+			temp %= 10;
+		}
+		else
+		{
+			carry = 0;
+		}
+		result[i+1] = temp + '0';
+	}
+	result[i+1] = carry + '0';
+	cout << result;
 }
 
 void subtraction(char a[], char b[], char op)
