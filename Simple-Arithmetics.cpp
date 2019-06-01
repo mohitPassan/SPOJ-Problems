@@ -157,7 +157,22 @@ void multiplication(char a[], char b[], char op)
 				ans[i][j+1] = ' ';
 			}
 		}
-		cout << ans[i] << endl;
+		//cout << ans[i] << endl;
+	}
+	for(i=strlen(b)-1,j=strlen(a);i>=0,j>=0;)		
+	{
+		cout << i << " " << j << endl;
+		int temp = j;
+		if(j+1 > strlen(a))
+		{
+			i = strlen(a);
+			j = --temp;
+		}
+		else
+		{
+			i--;
+			j++;
+		}
 	}
 	// char *result = new char[strlen(a)+3];
 	// result[strlen(a)+2] = '\0';
